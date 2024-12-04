@@ -15,7 +15,7 @@ This application is designed to detect and prevent fraudulent activities in cred
   - [API Endpoints](#api-endpoints)
   - [Batch Processing](#batch-processing)
   - [Kafka Integration](#kafka-integration)
-- [Frontend Interface](#frontend-interface)
+  - [Frontend Interface](#frontend-interface)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -114,7 +114,7 @@ You can process batches of transactions by running the `client_app.py` script. T
 
 The system uses Kafka for real-time processing of transaction data. The Kafka producer (`kafka_producer.py`) sends messages to a Kafka topic, and the Kafka consumer (`kafka_consumer.py`) processes these messages and interacts with the API.
 
-## Frontend Interface
+### Frontend Interface
 
 The frontend interface allows users to interact with the system via a web browser. The frontend is served using a simple HTTP server and communicates with the API for predictions.
 
