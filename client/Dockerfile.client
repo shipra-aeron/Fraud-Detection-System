@@ -1,0 +1,14 @@
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the client application code
+COPY . /app
+
+# Copy the requirements file and install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run the client application
+CMD ["python", "client_app.py"]

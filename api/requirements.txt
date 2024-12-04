@@ -1,0 +1,6 @@
+Flask
+flask-cors
+joblib===1.4.2
+scikit-learn===1.5.0
+pandas
+kafka-python

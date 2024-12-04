@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+venv/
+env/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs and temporary files
+*.log
+*.tmp
+*.out
+*.pid
+*.swp
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Git files
+.git/
+
+# Sensitive files
+*.env
+.env.*
+*.key
+*.pem
+
+# Large data files
+data/
+*.csv
+*.h5
