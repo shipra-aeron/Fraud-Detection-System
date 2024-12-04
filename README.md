@@ -6,6 +6,8 @@ This application is designed to detect and prevent fraudulent activities in cred
 - [System Architecture](#system-architecture)
 - [Project Structure](#project-structure)
 - [Setup and Installation](#setup-and-installation)
+  - [Clone the repository](#clone-the-repository)
+  - [Prerequisites](#prerequisites)
   - [Running Locally Without Docker](#running-locally-without-docker)
   - [Running with Docker](#running-with-docker)
 - [Model Training and Selection](#model-training-and-selection)
@@ -18,8 +20,8 @@ This application is designed to detect and prevent fraudulent activities in cred
 - [License](#license)
 
 ## System Architecture
-The following image illustrates the architecture of the Credit Card Fraud Detection System:
 ![System achitecture diagram](Architeture_diagram_for_credit_card_fraud_detection_sys.png)
+**Figure 1**: System Workflow integrating Kafka, Dockerized models, and Flask APIs for real-time fraud detection.
 
 ## Project Structure
 ```
@@ -51,8 +53,19 @@ Faud-detection-system/
 ├── nginx.conf
 
 ```
-
 ## Setup and Installation
+
+### Clone the repository
+   ```bash
+   git clone https://github.com/shipra-aeron/Fraud-Detection-System.git
+   cd Fraud-Detection-System
+   ```
+
+### Prerequisites
+- Python 3.8+
+- Docker and Docker Compose
+- Kafka
+
 
 ### Running Locally Without Docker
 
@@ -72,7 +85,26 @@ For an in-depth explanation of the thought process behind model training and sel
 
 The Flask API provides several endpoints for making predictions and managing transactions.
 
-- `POST /predict`: Accepts transaction data in JSON format and returns predictions.
+**POST /predict**
+  - **Description**: Accepts transaction data and returns a prediction.
+  - **Sample Request**:
+    ```json
+    {
+      "transaction_id": "12345",
+      "amount": 200.0,
+      "time": 56789,
+      "v1": 0.5,
+      "v2": -1.2,
+      "v3": 0.8
+    }
+    ```
+  - **Sample Response**:
+    ```json
+    {
+      "prediction": "fraud",
+      "confidence": 0.92
+    }
+    ```
 
 ### Batch Processing
 
@@ -89,6 +121,17 @@ The frontend interface allows users to interact with the system via a web browse
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue to discuss any changes.
+
+1. Fork the repository.
+2. Create a new branch for your feature/bugfix.
+3. Submit a pull request.
+
+## Future Work
+1. Unsupervised Learning:
+Explore clustering techniques for detecting novel fraud patterns.
+2. Geospatial Analysis:
+Integrate location data for enhanced fraud detection.
+
 
 ## License
 
