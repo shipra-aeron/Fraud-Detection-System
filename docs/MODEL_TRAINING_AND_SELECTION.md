@@ -20,29 +20,54 @@ The objective of this project is to develop a machine learning model that can ac
 
 The following models were considered for training:
 
-1. **Logistic Regression:**
-   - Pros: Simple, interpretable, and works well with imbalanced datasets.
-   - Cons: May not capture complex patterns in the data.
+1. **Logistic Regression**:
+   - **Pros**: Simple, interpretable, and performs well with linear relationships in data. Works decently with imbalanced datasets when combined with techniques like class weighting.
+   - **Cons**: Struggles with capturing complex patterns and non-linear relationships in the data.
 
-2. **Decision Tree:**
-   - Pros: Easy to interpret, handles both numerical and categorical data.
-   - Cons: Prone to overfitting, especially with imbalanced datasets.
+2. **Decision Tree**:
+   - **Pros**: Intuitive and easy to interpret, can handle both numerical and categorical data without preprocessing.
+   - **Cons**: Prone to overfitting, especially with small or imbalanced datasets, unless regularized (e.g., max depth, pruning).
 
-3. **Random Forest:**
-   - Pros: Reduces overfitting by averaging multiple decision trees, handles imbalanced data better.
-   - Cons: Less interpretable compared to single decision trees.
+3. **Random Forest**:
+   - **Pros**: Reduces overfitting by aggregating multiple decision trees, robust to noise, and handles imbalanced data effectively when paired with sampling techniques like SMOTE.
+   - **Cons**: Computationally heavier than single decision trees and less interpretable.
 
-4. **Gradient Boosting:**
-   - Pros: High performance, handles imbalanced data well.
-   - Cons: Computationally intensive, less interpretable.
+4. **Gradient Boosting**:
+   - **Pros**: Achieves high accuracy by combining weak learners iteratively; handles class imbalance well and adapts to data distributions.
+   - **Cons**: Slower to train compared to Random Forests and sensitive to hyperparameters.
 
-5. **XGBoost:**
-   - Pros: High performance, efficient, and handles imbalanced data well.
-   - Cons: Less interpretable, requires careful tuning of hyperparameters.
+5. **XGBoost (Extreme Gradient Boosting)**:
+   - **Pros**: Highly efficient, supports missing values, handles large datasets well, and includes built-in mechanisms for class imbalance (e.g., scale_pos_weight).
+   - **Cons**: Requires careful hyperparameter tuning; less interpretable without tools like SHAP or LIME.
 
-6. **LightGBM:**
-   - Pros: High performance, efficient, and handles large datasets and imbalanced data well.
-   - Cons: Less interpretable, sensitive to overfitting if not tuned properly.
+6. **LightGBM (Light Gradient Boosting Machine)**:
+   - **Pros**: Extremely fast and memory-efficient, handles large and imbalanced datasets effectively, and supports categorical features natively.
+   - **Cons**: Sensitive to overfitting on small datasets if hyperparameters are not tuned properly.
+
+7. **Support Vector Machine (SVM)**:
+   - **Pros**: Effective for small to medium datasets and finds optimal hyperplanes for classification.
+   - **Cons**: Computationally expensive for large datasets and sensitive to feature scaling.
+
+8. **K-Nearest Neighbors (KNN)**:
+   - **Pros**: Simple to understand and implement, makes no assumptions about data distribution.
+   - **Cons**: Computationally expensive for large datasets, performance depends heavily on feature scaling and the choice of `k`.
+
+9. **Neural Networks (Feedforward Neural Networks)**:
+   - **Pros**: Capable of modeling complex relationships in data; effective for high-dimensional feature spaces.
+   - **Cons**: Requires significant computational resources, hyperparameter tuning, and careful architecture design to avoid overfitting.
+
+10. **Long Short-Term Memory (LSTM)**:
+    - **Pros**: Specifically designed for sequential data; capable of capturing long-term dependencies in transaction history.
+    - **Cons**: Not suitable for this dataset due to the absence of a `Time` column or sequential patterns.
+
+11. **Graph Neural Networks (GNN)**:
+    - **Pros**: Effective for graph-structured data, capturing relationships between entities (e.g., users, merchants, and transactions).
+    - **Cons**: Relies on the availability of meaningful relational data, which is not inherently present in this dataset.
+
+12. **CatBoost**:
+    - **Pros**: Handles categorical features directly, robust to overfitting, and efficient for imbalanced datasets.
+    - **Cons**: Computationally slower than LightGBM for very large datasets.
+
 
 ## Model Training and Evaluation
 
@@ -64,7 +89,7 @@ The following models were considered for training:
 
     Scale the features using standardization.
 
-    ```
+    ```python
     from sklearn.preprocessing import StandardScaler
 
     scaler = StandardScaler()
@@ -75,7 +100,7 @@ The following models were considered for training:
 
     Apply SMOTE to the training data to balance the classes.
 
-    ```
+    ```python
     from imblearn.over_sampling import SMOTE
 
     smote = SMOTE(random_state=42)
@@ -86,7 +111,7 @@ The following models were considered for training:
 
     Train multiple models and evaluate their performance using cross-validation.
 
-    ``` 
+    ```python 
     from sklearn.linear_model import LogisticRegression
     from sklearn.tree import DecisionTreeClassifier
     from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
@@ -117,7 +142,7 @@ The following models were considered for training:
 5. **Model Evaluation:**
     Evaluate the performance of each model on the test set using metrics such as accuracy, precision, recall, F1 score, and AUC-ROC.
 
-    ```
+    ```python
     from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 
     def evaluate_model(model, X_test, y_test):
@@ -138,14 +163,11 @@ The following models were considered for training:
     accuracy, precision, recall, f1, auc_roc = evaluate_model(best_model, X_test_scaled, y_test)
 
     print(f'Accuracy: {accuracy}')
-    print(f'Precision: {precision}')
-    print(f'Recall: {recall}')
-    print(f'F1 Score: {f1}')
     print(f'AUC-ROC: {auc_roc}')
     ```
 
 6. **Final Model Selection:**
-    Based on the evaluation metrics, select the model that provides the best trade-off between precision and recall, and has a high AUC-ROC score. In this case, Random Forest or LightGBM could be chosen as the final model for deployment.
+    Based on the evaluation metrics, select the model that provides the best trade-off between precision and recall, and has a high AUC-ROC score. In this case, the **Random Forest** classifier was selected due to its balance of performance, robustness to noise, and ability to handle class imbalance effectively. While models like Gradient Boosting and XGBoost offered comparable performance, Random Forest was chosen for its interpretability with tools like SHAP and its efficiency for the given dataset. Advanced techniques like GNN and LSTM were evaluated but deemed less suitable due to the lack of relational and temporal features in the dataset.
 
 ## Conclusion
 By following this process, we ensure that the model selected for credit card fraud detection is robust, performs well on the imbalanced dataset, and generalizes well to new, unseen data. This careful approach to model training and selection is crucial for developing an effective fraud detection system.
